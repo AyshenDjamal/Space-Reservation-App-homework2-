@@ -55,7 +55,7 @@ public class WorkSpaceService {
             if (answer.equalsIgnoreCase("Add")) {
                 addSpace();
             } else {
-                adminMenu();
+                adminMenu();.
             }
         /*} else {
             System.out.println("The ID already exists, please enter a new ID");
