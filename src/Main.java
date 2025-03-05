@@ -6,11 +6,12 @@ public class Main {
     public static ReservationService reserves = new ReservationService();
 
     public static void main(String[] args) {
+        // Fayildan Oxunsun
+        spaces.loadSpaces();
         mainMenu();
     }
 
     public static void mainMenu() {
-        Scanner input = new Scanner(System.in);
         System.out.println("--------------------Main Menu--------------------");
         System.out.println("Welcome To The Coworking Space Reservation System");
         System.out.println("1. Admin Login");
@@ -35,8 +36,8 @@ public class Main {
         }
     }
 
-    public static void adminMenu() throws ApplicationException {
-        Scanner input = new Scanner(System.in);
+
+    public static void adminMenu() {
         System.out.println("-----------Admin Menu-----------");
         System.out.println("1. Add a new coworking space");
         System.out.println("2. Remove a coworking space");
@@ -53,7 +54,7 @@ public class Main {
                 spaces.removeSpace();
                 break;
             case 3:
-                reserves.viewAllBookings();
+                spaces.viewAllBookings();
                 break;
             case 0:
                 mainMenu();
@@ -66,7 +67,6 @@ public class Main {
     }
 
     public static void customerMenu() {
-        Scanner input = new Scanner(System.in);
         System.out.println("-----------Customer Menu-------------");
         System.out.println("1. Browse available spaces");
         System.out.println("2. Make a reservation");
@@ -78,7 +78,7 @@ public class Main {
 
         switch (option) {
             case 1:
-                spaces.viewSpaces();
+                reserves.viewSpaces();
                 break;
             case 2:
                 reserves.bookSpace();

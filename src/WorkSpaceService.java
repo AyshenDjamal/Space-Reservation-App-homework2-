@@ -1,82 +1,79 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class WorkSpaceService {
-    public  ArrayList<CoworkingSpaces> coworkingSpaces = new ArrayList<>();
-    public ArrayList<Reservation> reservations = new ArrayList<>();
+    public static ArrayList<CoworkingSpaces> coworkingSpaces = new ArrayList<>();
 
-    public WorkSpaceService () {
+    public WorkSpaceService() {
         coworkingSpaces.add(new CoworkingSpaces(1, "Open", 12.4, true));
         coworkingSpaces.add(new CoworkingSpaces(2, "Open", 12.4, true));
         coworkingSpaces.add(new CoworkingSpaces(3, "Open", 12.4, true));
     }
 
-    public void addSpace() throws ApplicationException {
-        Scanner input = new Scanner(System.in);
+    public static void addSpace() {
         System.out.print("Enter Space ID: ");
-        int id = input.nextInt();
+        int id = Main.input.nextInt();
 
         boolean status = true;
 
         for (CoworkingSpaces it : coworkingSpaces) {
             if (it.getSpaceID() == id) {
-                throw new ApplicationException("The ID already exists, please enter a new ID");
-                addSpace();
-
-                /*status = false;
-                break;*/
+                status = false;
+                break;
             }
         }
 
-        if (status) {
+        try {
+            if (status) {
 
-            System.out.print("Enter Space Type (open/private): ");
-            String spaceType = input.next();
+                System.out.print("Enter Space Type (open/private): ");
+                String spaceType = Main.input.next();
 
-            System.out.print("Enter Price: ");
-            double price = input.nextDouble();
+                System.out.print("Enter Price: ");
+                double price = Main.input.nextDouble();
 
-            System.out.println("Is this space available? (true/false)");
-            System.out.print("Enter your choice: ");
-            boolean isAvailable = input.nextBoolean();
-
-
-            CoworkingSpaces newSpace = new CoworkingSpaces(id, spaceType, price, isAvailable);
-            coworkingSpaces.add(newSpace);
+                System.out.println("Is this space available? (true/false)");
+                System.out.print("Enter your choice: ");
+                boolean isAvailable = Main.input.nextBoolean();
 
 
-            System.out.println("----------------------------------");
-            System.out.println("New coworking space added successfully!\n");
-            System.out.println("Go back to Admin Menu or add another space? (back/add)");
-            System.out.print("Enter your choice: ");
-            String answer = input.next();
-
-            if (answer.equalsIgnoreCase("Add")) {
-                addSpace();
-            } else {
-                adminMenu();.
-            }
-        /*} else {
-            System.out.println("The ID already exists, please enter a new ID");
-            addSpace();
-        }*/
-        }
+                CoworkingSpaces newSpace = new CoworkingSpaces(id, spaceType, price, isAvailable);
+                coworkingSpaces.add(newSpace);
 
 
-        public void removeSpace () {
-            Scanner input = new Scanner(System.in);
-            System.out.print("Enter the Space ID to be removed: ");
-            int id = input.nextInt();
+                System.out.println("----------------------------------");
+                System.out.println("New coworking space added successfully!\n");
+                System.out.println("Go back to Admin Menu or add another space? (back/add)");
+                System.out.print("Enter your choice: ");
+                String answer = Main.input.next();
 
-            boolean status = false;
-
-            for (CoworkingSpaces space : coworkingSpaces) {
-                if (space.getSpaceID() == id) {
-                    status = true;
-                    break;
+                if (answer.equalsIgnoreCase("Add")) {
+                    addSpace();
+                } else {
+                    Main.adminMenu();
                 }
+            } else {
+                throw new ApplicationException("The ID already exists, please enter a new ID");
             }
+        }catch (ApplicationException e){
+            System.out.println("Error: "+e.getMessage());
+            addSpace();
+        }
+    }
+
+    public void removeSpace() {
+        System.out.print("Enter the Space ID to be removed: ");
+        int id = Main.input.nextInt();
+
+        boolean status = false;
+
+        for (CoworkingSpaces space : coworkingSpaces) {
+            if (space.getSpaceID() == id) {
+                status = true;
+                break;
+            }
+        }
+        try {
             if (status) {
                 for (CoworkingSpaces space : coworkingSpaces) {
                     if (id == space.getSpaceID()) {
@@ -94,143 +91,77 @@ public class WorkSpaceService {
                 }
                 System.out.println("\nSelect '1' to go back to the Admin Menu or '2' to remove a space. (1/2)");
                 System.out.print("Enter your choice: ");
-                int num = input.nextInt();
+                int num = Main.input.nextInt();
 
                 if (num == 2) {
                     removeSpace();
                 } else {
-                    adminMenu();
+                    Main.adminMenu();
                 }
 
             } else {
-                System.out.println("\nEnter the correct space ID");
-                removeSpace();
+                throw new ApplicationException("\nEnter the correct space ID");
             }
+        } catch (ApplicationException e) {
+            System.out.println("Error: "+e.getMessage());
+            removeSpace();
         }
+    }
 
-        public void viewAllBookings () {
-            Scanner input = new Scanner(System.in);
-            if (reservations.isEmpty()) {
+    public void viewAllBookings() {
+            if (ReservationService.reservations.isEmpty()) {
                 System.out.println("------------------------------");
                 System.out.println("No reservations were found.\n");
-                System.out.println("Select '1' to go back to the Admin Menu");
+                /*System.out.println("Select '1' to go back to the Admin Menu");
                 System.out.print("Enter your choice: ");
-                int opt = input.nextInt();
-                adminMenu();
+                int opt = Main.input.nextInt();
+                Main.adminMenu();*/
             } else {
                 System.out.println("-------------List Of Reservations-----------");
-                for (Reservation it : reservations) {
+                for (Reservation it : ReservationService.reservations) {
                     System.out.println("ID: " + it.bookingID +
                             " | Name: " + it.customerName +
                             " | Date: " + it.date +
                             " | Start Time: " + it.startTime +
                             " | End Time: " + it.endTime);
                 }
-                System.out.println("\nSelect '1' to go back to the Admin Menu");
-                System.out.print("Enter your choice: ");
-                int opt = input.nextInt();
-                if (opt == 1) {
-                    adminMenu();
-                }
             }
-
-        }
-
-
-        public void bookSpace () {
-            Scanner input = new Scanner(System.in);
-            System.out.println("------------Make A Reservation-------------");
-            System.out.print("Enter your reservation ID: ");
-            int resID = input.nextInt();
-            input.nextLine();
-
-            boolean status = true;
-
-            for (Reservation it : reservations) {
-                if (it.bookingID == resID) {
-                    status = false;
-                    break;
-                }
-            }
-
-            if (status) {
-                System.out.print("Enter your name: ");
-                String name = input.nextLine();
-                System.out.print("Enter reservation date: ");
-                String date = input.nextLine();
-                System.out.print("Enter start time: ");
-                String start = input.nextLine();
-                System.out.print("Enter end time: ");
-                String end = input.nextLine();
-
-                Reservation newRes = new Reservation(resID, name, date, start, end);
-                reservations.add(newRes);
-
-                for (int i = 0; i < coworkingSpaces.size(); i++) {
-                    if (coworkingSpaces.get(i).getSpaceID() == resID) {
-                        CoworkingSpaces temp = coworkingSpaces.get(i);
-                        temp.setIsAvailable(false);
-                        coworkingSpaces.set(i, temp);
-                        break;
-                    }
-                }
-                System.out.println("-------------------------------------------------------");
-                System.out.println("Reservation accepted! Space " + resID + "  has been booked for you.");
-                System.out.println("\nSelect '1' to go back to the Customer Menu");
-                System.out.print("Enter your choice: ");
-                int opt = input.nextInt();
-                customerMenu();
-            } else {
-                System.out.println("Sorry, this space ID has already been taken. Please select a different space.");
-                bookSpace();
-            }
-        }
-
-
-        public void viewSpaces () {
-            Scanner input = new Scanner(System.in);
-            if (coworkingSpaces.isEmpty()) {
-                System.out.println("No coworking spaces are available.");
-            } else {
-                System.out.println("-------------List of Coworking Spaces----------");
-                for (CoworkingSpaces it : coworkingSpaces) {
-                    if (it.getIsAvailable()) {
-                        System.out.println("Space ID: " + it.getSpaceID() +
-                                " | Space Type: " + it.getSpaceType() +
-                                " | Price Per Hour: " + it.getPricePerHour() +
-                                " | Status: " + (it.getIsAvailable() ? "Available" : "Not Available"));
-                    }
-                }
-            }
-            System.out.println("\nSelect '1' to go back to the Customer Menu");
+            System.out.println("\nSelect '1' to go back to the Admin Menu");
             System.out.print("Enter your choice: ");
-            int opt = input.nextInt();
-            customerMenu();
+            int opt = Main.input.nextInt();
+            if (opt == 1) {
+                Main.adminMenu();
+            }
         }
-    }
 
-    public void saveSpaces(){
-        File file = new File("spaces.dat");
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
-            out.writeObject(coworkingSpaces);
-            System.out.println("Data saved successfully!");
-        } catch (IOException e) {
-            System.out.println("Error saving data: "+e.getMessage());
-        }
-    }
 
-    public void loadSpaces(){
-        File file = new File("spaces.dat");
-            if(file.exists())
-                try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){
-            coworkingSpaces = (ArrayList<CoworkingSpaces>) in.readObject();
-            System.out.println("Spaces restored successfully");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error loading spaces: "+e.getMessage());
-        }
-    }else{
-        System.out.println("Spaces haven't been saved. Restore spaces. ");
-    }
+            public void saveSpaces () {
+                try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("spaces.ser"))) {
+                    out.writeObject(coworkingSpaces);
+                    out.writeObject(ReservationService.reservations);
+                    System.out.println("Data saved successfully!");
+                } catch (IOException e) {
+                    System.out.println("Error saving data: " + e.getMessage());
+                }
+            }
 
+
+            public void loadSpaces () {
+                File file = new File("spaces.ser");
+                if (file.exists()) {
+                    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+                        coworkingSpaces = (ArrayList<CoworkingSpaces>) in.readObject();
+                        ReservationService.reservations = (ArrayList<Reservation>) in.readObject();
+                        System.out.println("Spaces restored successfully");
+                    } catch (IOException | ClassNotFoundException e) {
+                        System.out.println("Error loading spaces: " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("Spaces haven't been saved. Restore spaces. ");
+                }
+
+            }
 }
+
+
 

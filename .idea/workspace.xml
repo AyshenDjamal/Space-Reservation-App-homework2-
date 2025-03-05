@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1bf32d38-f506-49d8-899b-1f087bb62938" name="Changes" comment="" />
+    <list default="true" id="1bf32d38-f506-49d8-899b-1f087bb62938" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ApplicationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApplicationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CoworkingSpaces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CoworkingSpaces.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReservationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WorkSpaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WorkSpaceService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,12 +33,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AyshenDjamal/Space-Reservation-App-homework2-.git",
-    "accountId": "3b13dfa4-6a42-45d0-8b5d-53d0e146c423"
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "AyshenDjamal"
   }
 }]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AyshenDjamal/Space-Reservation-App-homework2-.git&quot;,
+    &quot;accountId&quot;: &quot;3b13dfa4-6a42-45d0-8b5d-53d0e146c423&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -40,15 +54,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "developer",
-    "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "C:/Users/mrjer/Desktop/SpaceReservationApp/src/Main.java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;developer&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/mrjer/Desktop/SpaceReservationApp/src/Main.java&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -59,16 +73,5 @@
       <updated>1740913810799</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

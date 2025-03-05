@@ -1,6 +1,7 @@
 import java.io.Serializable;
 
 public class CoworkingSpaces implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int spaceID;
     private String spaceType;
     private double pricePerHour;
@@ -44,6 +45,4 @@ public class CoworkingSpaces implements Serializable {
     public void setIsAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
-
-
 }
