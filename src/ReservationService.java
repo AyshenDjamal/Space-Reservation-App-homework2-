@@ -23,13 +23,13 @@ public class ReservationService {
                     }
                 }
             }
-            }catch(ApplicationException e){
-                System.out.println("Error: " + e.getMessage());
-            }
-            System.out.println("\nSelect '1' to go back to the Customer Menu");
-            System.out.print("Enter your choice: ");
-            int opt = Main.input.nextInt();
-            Main.customerMenu();
+        } catch (ApplicationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        System.out.println("\nSelect '1' to go back to the Customer Menu");
+        System.out.print("Enter your choice: ");
+        int opt = Main.input.nextInt();
+        Main.customerMenu();
     }
 
     public void bookSpace() {
@@ -78,33 +78,33 @@ public class ReservationService {
                 throw new ApplicationException("Sorry, this space ID has already been taken. Please select a different space.");
             }
         } catch (ApplicationException e) {
-            System.out.println("Error: "+e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             bookSpace();
         }
     }
 
 
-
     public void myBookings() {
         System.out.println("------------Display My Bookings-------------");
-            if (reservations.isEmpty()) {
-                System.out.println("You don't have a booking. ");
-            } else {
-                for (Reservation it : reservations) {
-                    System.out.println(
-                            "ID: " + it.bookingID +
-                                    " | Name: " + it.customerName +
-                                    " | Date: " + it.date +
-                                    " | Start Time: " + it.startTime +
-                                    " | End Time: " + it.endTime
-                    );
-                }
+        if (reservations.isEmpty()) {
+            System.out.println("You don't have a booking. ");
+        } else {
+            for (Reservation it : reservations) {
+                System.out.println(
+                        "ID: " + it.bookingID +
+                                " | Name: " + it.customerName +
+                                " | Date: " + it.date +
+                                " | Start Time: " + it.startTime +
+                                " | End Time: " + it.endTime
+                );
             }
+        }
         System.out.println("\nSelect '1' to go back to the Customer Menu");
         System.out.print("Enter your choice: ");
         int opt = Main.input.nextInt();
         Main.customerMenu();
     }
+
 
     public void cancelBooking() {
         System.out.println("-----------Cancel Your Booking-----------");

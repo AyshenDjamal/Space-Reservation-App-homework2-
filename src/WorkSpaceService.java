@@ -55,8 +55,8 @@ public class WorkSpaceService {
             } else {
                 throw new ApplicationException("The ID already exists, please enter a new ID");
             }
-        }catch (ApplicationException e){
-            System.out.println("Error: "+e.getMessage());
+        } catch (ApplicationException e) {
+            System.out.println("Error: " + e.getMessage());
             addSpace();
         }
     }
@@ -103,64 +103,60 @@ public class WorkSpaceService {
                 throw new ApplicationException("\nEnter the correct space ID");
             }
         } catch (ApplicationException e) {
-            System.out.println("Error: "+e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             removeSpace();
         }
     }
 
     public void viewAllBookings() {
-            if (ReservationService.reservations.isEmpty()) {
-                System.out.println("------------------------------");
-                System.out.println("No reservations were found.\n");
-                /*System.out.println("Select '1' to go back to the Admin Menu");
-                System.out.print("Enter your choice: ");
-                int opt = Main.input.nextInt();
-                Main.adminMenu();*/
-            } else {
-                System.out.println("-------------List Of Reservations-----------");
-                for (Reservation it : ReservationService.reservations) {
-                    System.out.println("ID: " + it.bookingID +
-                            " | Name: " + it.customerName +
-                            " | Date: " + it.date +
-                            " | Start Time: " + it.startTime +
-                            " | End Time: " + it.endTime);
-                }
-            }
-            System.out.println("\nSelect '1' to go back to the Admin Menu");
-            System.out.print("Enter your choice: ");
-            int opt = Main.input.nextInt();
-            if (opt == 1) {
-                Main.adminMenu();
+        if (ReservationService.reservations.isEmpty()) {
+            System.out.println("------------------------------");
+            System.out.println("No reservations were found.\n");
+        } else {
+            System.out.println("-------------List Of Reservations-----------");
+            for (Reservation it : ReservationService.reservations) {
+                System.out.println("ID: " + it.bookingID +
+                        " | Name: " + it.customerName +
+                        " | Date: " + it.date +
+                        " | Start Time: " + it.startTime +
+                        " | End Time: " + it.endTime);
             }
         }
+        System.out.println("\nSelect '1' to go back to the Admin Menu");
+        System.out.print("Enter your choice: ");
+        int opt = Main.input.nextInt();
+        if (opt == 1) {
+            Main.adminMenu();
+        }
+    }
 
 
-            public void saveSpaces () {
-                try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("spaces.ser"))) {
-                    out.writeObject(coworkingSpaces);
-                    out.writeObject(ReservationService.reservations);
-                    System.out.println("Data saved successfully!");
-                } catch (IOException e) {
-                    System.out.println("Error saving data: " + e.getMessage());
-                }
+    public void saveSpaces() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("spaces.ser"))) {
+            out.writeObject(coworkingSpaces);
+            out.writeObject(ReservationService.reservations);
+            System.out.println("Data saved successfully!");
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+    }
+
+
+    public void loadSpaces() {
+        File file = new File("spaces.ser");
+        if (file.exists()) {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+                coworkingSpaces = (ArrayList<CoworkingSpaces>) in.readObject();
+                ReservationService.reservations = (ArrayList<Reservation>) in.readObject();
+                System.out.println("Spaces restored successfully");
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Error loading spaces: " + e.getMessage());
             }
+        } else {
+            System.out.println("Spaces haven't been saved. Restore spaces. ");
+        }
 
-
-            public void loadSpaces () {
-                File file = new File("spaces.ser");
-                if (file.exists()) {
-                    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-                        coworkingSpaces = (ArrayList<CoworkingSpaces>) in.readObject();
-                        ReservationService.reservations = (ArrayList<Reservation>) in.readObject();
-                        System.out.println("Spaces restored successfully");
-                    } catch (IOException | ClassNotFoundException e) {
-                        System.out.println("Error loading spaces: " + e.getMessage());
-                    }
-                } else {
-                    System.out.println("Spaces haven't been saved. Restore spaces. ");
-                }
-
-            }
+    }
 }
 
 

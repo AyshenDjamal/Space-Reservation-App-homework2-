@@ -6,7 +6,6 @@ public class Main {
     public static ReservationService reserves = new ReservationService();
 
     public static void main(String[] args) {
-        // Fayildan Oxunsun
         spaces.loadSpaces();
         mainMenu();
     }
