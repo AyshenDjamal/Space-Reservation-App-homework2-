@@ -45,4 +45,12 @@ public class CoworkingSpaces implements Serializable {
     public void setIsAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
+
+    @Override
+    public String toString(){
+        return "Space ID: " + getSpaceID() +
+                " | Space Type: " + getSpaceType() +
+                " | Price Per Hour: " + getPricePerHour() +
+                " | Status: " + (getIsAvailable() ? "Available" : "Not Available");
+    }
 }

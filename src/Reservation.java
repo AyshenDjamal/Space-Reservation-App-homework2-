@@ -15,5 +15,16 @@ public class Reservation implements Serializable {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    @Override
+    public String toString(){
+        return
+                "ID: " + bookingID +
+                        " | Name: " + customerName +
+                        " | Date: " + date +
+                        " | Start Time: " + startTime +
+                        " | End Time: " + endTime;
+
+    }
 }
 

@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1bf32d38-f506-49d8-899b-1f087bb62938" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spaces.ser" beforeDir="false" afterPath="$PROJECT_DIR$/spaces.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spaces.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ApplicationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApplicationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CoworkingSpaces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CoworkingSpaces.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReservationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WorkSpaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WorkSpaceService.java" afterDir="false" />
     </list>

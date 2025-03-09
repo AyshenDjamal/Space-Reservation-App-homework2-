@@ -1,30 +1,19 @@
-import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReservationService {
-    public static ArrayList<Reservation> reservations = new ArrayList<>();
+    public static HashMap<Integer, Reservation> reservations = new HashMap<>();
 
-    public ReservationService() {
-        reservations = new ArrayList<>();
-    }
 
     public void viewSpaces() {
-        try {
-            if (WorkSpaceService.coworkingSpaces.isEmpty()) {
-                throw new ApplicationException("No coworking spaces are available.");
-            } else {
-                System.out.println("-------------List of Coworking Spaces----------");
-                for (CoworkingSpaces it : WorkSpaceService.coworkingSpaces) {
-                    if (it.getIsAvailable()) {
-                        System.out.println("Space ID: " + it.getSpaceID() +
-                                " | Space Type: " + it.getSpaceType() +
-                                " | Price Per Hour: " + it.getPricePerHour() +
-                                " | Status: " + (it.getIsAvailable() ? "Available" : "Not Available"));
-                    }
+        if (WorkSpaceService.coworkingSpaces.isEmpty()) {
+            System.out.println("No coworking spaces are available.");
+        } else {
+            System.out.println("-------------List of Coworking Spaces----------");
+            for (CoworkingSpaces it : WorkSpaceService.coworkingSpaces.values()) {
+                if (it.getIsAvailable()) {
+                    System.out.println(it);
                 }
             }
-        } catch (ApplicationException e) {
-            System.out.println("Error: " + e.getMessage());
         }
         System.out.println("\nSelect '1' to go back to the Customer Menu");
         System.out.print("Enter your choice: ");
@@ -32,22 +21,17 @@ public class ReservationService {
         Main.customerMenu();
     }
 
+
     public void bookSpace() {
         System.out.println("------------Make A Reservation-------------");
         System.out.print("Enter your reservation ID: ");
         int resID = Main.input.nextInt();
         Main.input.nextLine();
 
-        boolean status = true;
-
-        for (Reservation it : ReservationService.reservations) {
-            if (it.bookingID == resID) {
-                status = false;
-                break;
-            }
-        }
         try {
-            if (status) {
+            if (reservations.containsKey(resID)) {
+                throw new ApplicationException("Sorry, this space ID has already been taken. \nPlease select a different space.");
+            } else {
                 System.out.print("Enter your name: ");
                 String name = Main.input.nextLine();
                 System.out.print("Enter reservation date: ");
@@ -58,29 +42,26 @@ public class ReservationService {
                 String end = Main.input.nextLine();
 
                 Reservation newRes = new Reservation(resID, name, date, start, end);
-                ReservationService.reservations.add(newRes);
+                ReservationService.reservations.put(resID, newRes);
 
-                for (int i = 0; i < WorkSpaceService.coworkingSpaces.size(); i++) {
-                    if (WorkSpaceService.coworkingSpaces.get(i).getSpaceID() == resID) {
-                        CoworkingSpaces temp = WorkSpaceService.coworkingSpaces.get(i);
-                        temp.setIsAvailable(false);
-                        WorkSpaceService.coworkingSpaces.set(i, temp);
-                        break;
+                if (WorkSpaceService.coworkingSpaces.containsKey(resID)) {
+                    CoworkingSpaces space = WorkSpaceService.coworkingSpaces.get(resID);
+                    if (space != null) {
+                        space.setIsAvailable(false);
+                        WorkSpaceService.coworkingSpaces.put(resID, space);
                     }
                 }
-                System.out.println("-------------------------------------------------------");
-                System.out.println("Reservation accepted! Space " + resID + "  has been booked for you.");
-                System.out.println("\nSelect '1' to go back to the Customer Menu");
-                System.out.print("Enter your choice: ");
-                int opt = Main.input.nextInt();
-                Main.customerMenu();
-            } else {
-                throw new ApplicationException("Sorry, this space ID has already been taken. Please select a different space.");
             }
         } catch (ApplicationException e) {
             System.out.println("Error: " + e.getMessage());
             bookSpace();
         }
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Reservation accepted! Space " + resID + "  has been booked for you.");
+        System.out.println("\nSelect '1' to go back to the Customer Menu");
+        System.out.print("Enter your choice: ");
+        int opt = Main.input.nextInt();
+        Main.customerMenu();
     }
 
 
@@ -89,14 +70,8 @@ public class ReservationService {
         if (reservations.isEmpty()) {
             System.out.println("You don't have a booking. ");
         } else {
-            for (Reservation it : reservations) {
-                System.out.println(
-                        "ID: " + it.bookingID +
-                                " | Name: " + it.customerName +
-                                " | Date: " + it.date +
-                                " | Start Time: " + it.startTime +
-                                " | End Time: " + it.endTime
-                );
+            for (Reservation it : reservations.values()) {
+                System.out.println(it.toString());
             }
         }
         System.out.println("\nSelect '1' to go back to the Customer Menu");
@@ -104,54 +79,48 @@ public class ReservationService {
         int opt = Main.input.nextInt();
         Main.customerMenu();
     }
+
 
 
     public void cancelBooking() {
         System.out.println("-----------Cancel Your Booking-----------");
-        System.out.print("Enter your reservation ID:");
-        int canID = Main.input.nextInt();
+        if (reservations.isEmpty()) {
+            System.out.println("You don't have a booking. \n");
+            System.out.println("\nSelect '1' to go back to the Customer Menu");
+            System.out.print("Enter your choice: ");
+            int opt = Main.input.nextInt();
+            Main.customerMenu();
+        }
 
-        try {
-            if (reservations.isEmpty()) {
-                System.out.println("------------------------------");
-                throw new ApplicationException("You don't have a booking. \n");
-            } else {
+        while (true) {
+            System.out.print("Enter your reservation ID:");
+            int canID = Main.input.nextInt();
 
-                boolean status = false;
-
-                for (int i = 0; i < reservations.size(); i++) {
-                    if (reservations.get(i).bookingID == canID) {
-                        reservations.remove(i);
-                        status = true;
-                    }
-                }
-
-                for (int i = 0; i < WorkSpaceService.coworkingSpaces.size(); i++) {
-                    if (WorkSpaceService.coworkingSpaces.get(i).getSpaceID() == canID) {
-                        CoworkingSpaces temp = WorkSpaceService.coworkingSpaces.get(i);
-                        temp.setIsAvailable(true);
-                        WorkSpaceService.coworkingSpaces.set(i, temp);
-                        break;
-                    }
-                }
-
-                if (status) {
-                    System.out.println("------------------------------");
-                    System.out.println("Your booking was successfully canceled!");
-                } else {
+            try {
+                if (!reservations.containsKey(canID)) {
                     System.out.println("\n------------------------------");
                     throw new ApplicationException("Enter correct booking ID. \n");
+                } else {
+                    reservations.remove(canID);
+                        System.out.println("------------------------------");
+                        System.out.println("Your booking was successfully canceled!");
                 }
+
+                if (WorkSpaceService.coworkingSpaces.containsKey(canID)) {
+                    CoworkingSpaces space = WorkSpaceService.coworkingSpaces.get(canID);
+                        space.setIsAvailable(true);
+                        WorkSpaceService.coworkingSpaces.put(canID, space);
+                }
+                break;
+            } catch (
+                    ApplicationException e) {
+                System.out.println("Error, Please try again: " + e.getMessage());
             }
-        } catch (ApplicationException e) {
-            System.out.println("Error: " + e.getMessage());
-            cancelBooking();
         }
         System.out.println("\nSelect '1' to go back to the Customer Menu");
         System.out.print("Enter your choice: ");
         int opt = Main.input.nextInt();
         Main.customerMenu();
     }
-
 }
 
