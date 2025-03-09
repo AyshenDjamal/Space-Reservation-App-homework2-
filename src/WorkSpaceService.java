@@ -65,12 +65,12 @@ public class WorkSpaceService {
             CoworkingSpaces space = coworkingSpaces.get(id);
 
 
-        if(!space.getIsAvailable()){
-            throw new ApplicationException("This coworking space is booked and cannot be removed.");
-        }else{
+        if(space.getIsAvailable()){
             coworkingSpaces.remove(id);
             System.out.println("----------------------------");
             System.out.println("Space removed successfully!");
+        }else{
+            System.out.println("This coworking space is booked and cannot be removed.");
         }
 
                     System.out.println("\nSelect '1' to go back to the Admin Menu or '2' to remove a space. (1/2)");
@@ -106,7 +106,6 @@ public class WorkSpaceService {
             if (opt == 1) {
                 Main.adminMenu();
             }
-
     }
 
 
